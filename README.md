@@ -1,6 +1,6 @@
 # My-first-project
 projet de devloppement web 
-# Nom du Projet (ex: MyManager - Gestion Hospitalière)
+# Nom du Projet ( EMSI - Gestion Hospitalière)
 
 <!-- Mettez un court slogan ou une description en une phrase ici -->
 > Application Backoffice de gestion réalisée dans le cadre du module Dévelopement web.
@@ -19,15 +19,15 @@ projet de devloppement web
 
 | Prénom & Nom | Rôle / Tâches principales | Lien Github |
 |--------------|---------------------------|-------------|
-| Étudiant 1   | (ex: Dashboard, ChartJS)  | [@pseudo](https://github.com/pseudo) |
-| Étudiant 2   | (ex: CRUD Utilisateurs)   | [@pseudo](https://github.com/pseudo) |
-| Étudiant 3   | (ex: CSS, Responsive)     | [@pseudo](https://github.com/pseudo) |
+| Mouad Mezyan  | (ex: Dashboard, ChartJS)  | [Mouad05-mz](https://github.com/Mouad05-mz) |
+| Marouane Younsi  | (ex: CRUD Utilisateurs)   | [Marouanetheglitch](https://github.com/Marouanetheglitch) |
+| Kamil Elhaiba   | (ex: CSS, Responsive)     | [Kamil266](https://github.com/Kamil266) |
 
 ---
 
 ## 📝 Thème Choisi
 <!-- Indiquez le thème choisi parmi la liste ou votre sujet personnalisé -->
-*   **Thème :** (ex: Gestion de Bibliothèque / Gestion Immobilière / Custom...)
+*   **Thème :** Gestion Hospitalière
 *   **Description :** Une brève explication du but de l'application.
 
 ---
