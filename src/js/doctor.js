@@ -13,10 +13,10 @@ function loadDoctors() {
         // Add sample doctor
         doctors = [{
             id: 1,
-            nom: 'Dr. Sarah Johnson',
+            nom: 'Dr. Redouan Mohamed',
             specialite: 'Cardiologie',
             telephone: '06 11 22 33 44',
-            email: 'sarah.johnson@hospital.com',
+            email: 'redouan.mohamed@hospital.com',
             experience: 10
         }];
         saveDoctors();

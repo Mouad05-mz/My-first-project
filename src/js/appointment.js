@@ -16,7 +16,7 @@ function loadAppointments() {
             patientId: 1,
             patientName: 'Mouad Mezyan',
             doctorId: 1,
-            doctorName: 'Dr. Sarah Johnson',
+            doctorName: 'Dr. Redouan Mohamed',
             date: '2025-12-30',
             time: '10:00',
             reason: 'Consultation générale',

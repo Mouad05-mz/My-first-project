@@ -40,19 +40,25 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            // Simple validation - accept any email/password for demo
+            // Accept any email/password and go directly to dashboard
             if (email && password) {
                 // Store login status in localStorage
                 localStorage.setItem('hospital_logged_in', 'true');
                 localStorage.setItem('hospital_user_email', email);
 
-                // Redirect to dashboard
+                // Redirect directly to dashboard
                 window.location.href = 'dashboard.html';
             } else {
-                alert('Veuillez saisir un email et un mot de passe valides.');
+                alert('Veuillez saisir un email et un mot de passe.');
             }
 
             return false;
+        }
+
+        // Auto-fill for demo purposes
+        window.onload = function() {
+            document.getElementById('email').value = 'demo@hospital.com';
+            document.getElementById('password').value = 'demo123';
         }
     </script>
 </body>

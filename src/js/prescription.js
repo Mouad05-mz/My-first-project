@@ -16,7 +16,7 @@ function loadPrescriptions() {
             patientId: 1,
             patientName: 'Mouad Mezyan',
             doctorId: 1,
-            doctorName: 'Dr. Sarah Johnson',
+            doctorName: 'Dr. Redouan Mohamed',
             medication: 'Paracetamol',
             dosage: '500mg - 3 fois par jour',
             duration: '7 jours',
