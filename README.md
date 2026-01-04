@@ -19,16 +19,18 @@ projet de devloppement web
 
 | Prénom & Nom | Rôle / Tâches principales | Lien Github |
 |--------------|---------------------------|-------------|
-| Mouad Mezyan  | (ex: Dashboard, ChartJS)  | [Mouad05-mz](https://github.com/Mouad05-mz) |
-| Marouane Younsi  | (ex: CRUD Utilisateurs)   | [Marouanetheglitch](https://github.com/Marouanetheglitch) |
-| Kamil Elhaiba   | (ex: CSS, Responsive)     | [Kamil266](https://github.com/Kamil266) |
+| Mouad Mezyan  |  Dashboard, ChartJS  | [Mouad05-mz](https://github.com/Mouad05-mz) |
+| Marouane Younsi  | CRUD Patients, Médecins, Prescriptions | [Marouanetheglitch](https://github.com/Marouanetheglitch) |
+| Kamil Elhaiba   | Style, ChartJS | [Kamil266](https://github.com/Kamil266) |
 
 ---
 
 ## 📝 Thème Choisi
 <!-- Indiquez le thème choisi parmi la liste ou votre sujet personnalisé -->
 *   **Thème :** Gestion Hospitalière
-*   **Description :** Une brève explication du but de l'application.
+*   **Description :** Application web complète pour la gestion des patients, médecins, prescriptions, rendez-vous et services médicaux. Développé avec HTML5/CSS3/JavaScript, interface responsive, graphiques interactifs et export de données.
+
+
 
 ---
 
