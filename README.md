@@ -36,40 +36,40 @@ projet de devloppement web
 <!-- Cochez les cases [x] pour les fonctionnalités terminées. Laissez [ ] pour ce qui n'est pas fait. -->
 
 ### Fonctionnalités Principales
-- [ ] **CRUD 1 :** [Nom Entité, ex: Utilisateurs] (Create, Read, Update, Delete)
-- [ ] **CRUD 2 :** [Nom Entité]
-- [ ] **CRUD 3 :** [Nom Entité]
-- [ ] **CRUD 4 :** [Nom Entité]
-- [ ] **CRUD 5 :** [Nom Entité]
-- [ ] **Recherche & Filtres** dans les tableaux
-- [ ] **Pagination**
+- [*] **CRUD 1 :** [patients] (Create, Read, Update, Delete)
+- [*] **CRUD 2 :** [Médecins]
+- [*] **CRUD 3 :** [Prescriptions]
+- [*] **CRUD 4 :** [Rendez-vous]
+- [*] **CRUD 5 :** [Services]
+- [*] **Recherche & Filtres** dans les tableaux
+- [*] **Pagination**
 
 ### Dashboard & Data
-- [ ] **KPIs :** Cartes avec chiffres clés (Total utilisateurs, revenus, etc.)
-- [ ] **Chart 1 :** [Type, ex: Pie Chart]
-- [ ] **Chart 2 :** [Type, ex: Bar Chart]
-- [ ] **Chart 3 :** [Type]
-- [ ] **Chart 4 :** [Type]
-- [ ] **Chart 5 :** [Type]
+- [*] **KPIs :** Cartes avec chiffres clés (Total utilisateurs, revenus, etc.)
+- [*] **Chart 1 :** [Pie Chart - Age distribution of patients by age groups (0-18, 19-35, 36-50, 51-65, 65+)]
+- [*] **Chart 2 :** [Bar Chart - Appointment status distribution (Confirmed, Pending, Cancelled)]
+- [*] **Chart 3 :** [Line Chart - Prescriptions over time (monthly data for last 6 months)]
+- [*] **Chart 4 :** [Bar Chart - Service prices comparison]
+- [*] **Chart 5 :** [Doughnut Chart - Doctor specialties distribution]
 
 ### Technique & Bonus
-- [ ] **Export :** (PDF ou CSV)
-- [ ] **Architecture :** Code organisé sans Framework (Vanilla JS)
-- [ ] **Design :** Interface Responsive (Mobile/Tablette)
+- [*] **Export :** (PDF ou CSV)
+- [*] **Architecture :** Code organisé sans Framework (Vanilla JS)
+- [*] **Design :** Interface Responsive (Mobile/Tablette)
 
 ---
 
 ## 🛠 Stack Technique
 
-*   **HTML5 / CSS3** (Framework CSS utilisé : Bootstrap / Tailwind / Autre ?)
-*   **JavaScript (ES6+)** (Vanilla JS obligatoire)
-*   **Bibliothèques JS utilisées :** (ex: Chart.js, Faker.js, jsPDF, Lodash...)
+*   **HTML5 / CSS3** (Framework CSS utilisé : Bootstrap 5.3.0)
+*   **JavaScript (ES6+)** (Vanilla JS obligatoire - Aucun framework JS utilisé)
+*   **Bibliothèques JS utilisées :** (Chart.js (pour les graphiques), Bootstrap 5.3.0 (composants UI))
 
 ### APIs Utilisées
-<!-- Listez les APIs externes ou précisez si vous utilisez des données mockées -->
-*   Source des données : [ex: JSONPlaceholder, Mockaroo, API locale...]
-    *   Endpoint 1 : `https://api.emple.com/users`
-    *   Endpoint 2 : ...
+<!-- Aucune API externe utilisée - Données stockées localement -->
+*   **Source des données : localStorage (navigateur) - Données mockées/persistées localement**
+    *   Aucune API externe requise - Application fonctionnelle hors ligne
+    *   Persistance automatique des données dans le navigateur
 
 ---
 
