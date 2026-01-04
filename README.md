@@ -8,7 +8,7 @@ projet de devloppement web
 ## 🔗 Liens Importants
 
 <!-- REMPLACEZ LES LIENS CI-DESSOUS -->
-- **APPLICATION DÉPLOYÉE (Live Demo) :** [CLIQUEZ ICI POUR VOIR LE SITE](https://mouad05-mz.github.io/My-first-project/test.html)
+- **APPLICATION DÉPLOYÉE (Live Demo) :** [CLIQUEZ ICI POUR VOIR LE SITE](https://mouad05-mz.github.io/My-first-project/)
 - **Repository GitHub :** [Lien vers ce repo](https://github.com/Mouad05-mz/My-first-project)
 
 ---
