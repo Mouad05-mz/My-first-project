@@ -81,11 +81,11 @@ Pour lancer le projet localement :
 
 1.  Cloner le repo :
     ```bash
-    git clone https://github.com/votre-user/votre-repo.git
+    git clone https://github.com/Mouad05-mz/My-first-project.git
     ```
 2.  Ouvrir le dossier :
     ```bash
-    cd votre-dossier
+    cd My-first-project
     ```
 3.  Lancer l'application :
     *   Ouvrez simplement `index.html` dans votre navigateur.
