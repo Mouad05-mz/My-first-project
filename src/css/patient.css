@@ -1,0 +1,187 @@
+
+/* Bootstrap-compatible Patient Page Styles */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+    --primary-color: #007bff;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --light-bg: #f8f9fa;
+    --dark-text: #343a40;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* TABLE */
+.dataTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dataTable th, .dataTable td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 16px;
+}
+
+.dataTable th {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0056b3 100%);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 14px;
+}
+
+.dataTable tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.dataTable tr:hover {
+    background: #e3f2fd;
+    transform: scale(1.01);
+    transition: var(--transition);
+}
+
+.dataTable tr:last-child td {
+    border-bottom: none;
+}
+
+/* BUTTONS */
+.addBtn {
+    background: linear-gradient(135deg, var(--success-color) 0%, #1e7e34 100%);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.addBtn::before {
+    content: '+';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.addBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(40, 167, 69, 0.4);
+}
+
+.addBtn:active {
+    transform: translateY(0);
+}
+
+.actionBtn {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0056b3 100%);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 2px 10px rgba(0, 123, 255, 0.2);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actionBtn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.viewBtn {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    box-shadow: 0 2px 10px rgba(23, 162, 184, 0.2);
+}
+
+.viewBtn:hover {
+    box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+}
+
+.viewBtn::before {
+    content: '👁';
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+.editBtn {
+    background: linear-gradient(135deg, var(--success-color) 0%, #1e7e34 100%);
+    box-shadow: 0 2px 10px rgba(40, 167, 69, 0.2);
+}
+
+.editBtn:hover {
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.editBtn::before {
+    content: '✏';
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+.deleteBtn {
+    background: linear-gradient(135deg, var(--danger-color) 0%, #bd2130 100%);
+    box-shadow: 0 2px 10px rgba(220, 53, 69, 0.2);
+}
+
+.deleteBtn:hover {
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.deleteBtn::before {
+    content: '🗑';
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .dataTable {
+        font-size: 14px;
+        margin-top: 20px;
+    }
+    .dataTable th, .dataTable td {
+        padding: 10px 12px;
+    }
+    .actionBtn {
+        padding: 6px 12px;
+        font-size: 12px;
+        margin-right: 4px;
+    }
+    .addBtn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    .addBtn::before {
+        left: 10px;
+    }
+}
