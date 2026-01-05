@@ -1,71 +1,87 @@
-# My-first-project
-projet de devloppement web 
-# Nom du Projet ( EMSI - Gestion Hospitalière)
+# Hospital Management System
 
-<!-- Mettez un court slogan ou une description en une phrase ici -->
-> Application Backoffice de gestion réalisée dans le cadre du module Dévelopement web.
+Système de gestion hospitalière développé en HTML, CSS et JavaScript. L'application permet de gérer les patients, les médecins et les prescriptions.
 
-## 🔗 Liens Importants
+## Description
 
-<!-- REMPLACEZ LES LIENS CI-DESSOUS -->
-- **APPLICATION DÉPLOYÉE (Live Demo) :** [CLIQUEZ ICI POUR VOIR LE SITE](https://mouad05-mz.github.io/My-first-project/)
-- **Repository GitHub :** [Lien vers ce repo](https://github.com/Mouad05-mz/My-first-project)
+Ce projet est une application web pour gérer les informations des patients, des médecins et des prescriptions médicales. Les données sont stockées localement dans le navigateur et persistent entre les sessions.
 
----
+## Structure du Projet
 
-## 👥 Membres de l'Équipe
+```
+├── index.html              # Page de connexion
+├── dashboard.html          # Interface principale
+├── README.md              # Documentation
+└── src/
+    ├── css/
+    │   ├── style.css       # Styles de la page de connexion
+    │   ├── dashboard.css   # Styles du tableau de bord
+    │   └── patient.css     # Styles des tableaux
+    └── js/
+        ├── app.js          # Logique de navigation
+        ├── patient.js      # Gestion des patients
+        ├── doctor.js       # Gestion des médecins
+        ├── prescription.js # Gestion des prescriptions
+        ├── appointment.js  # Gestion des rendez-vous
+        └── service.js      # Gestion des services
+```
 
-**Nom du Groupe :** [Insérer le nom du groupe ici]
+## Fonctionnalités
 
-| Prénom & Nom | Rôle / Tâches principales | Lien Github |
-|--------------|---------------------------|-------------|
-| Mouad Mezyan  |  Dashboard, ChartJS  | [Mouad05-mz](https://github.com/Mouad05-mz) |
-| Marouane Younsi  | CRUD Patients, Médecins, Prescriptions | [Marouanetheglitch](https://github.com/Marouanetheglitch) |
-| Kamil Elhaiba   | Style, ChartJS | [Kamil266](https://github.com/Kamil266) |
+### Gestion des Patients
+- Ajouter un nouveau patient
+- Voir les détails d'un patient
+- Modifier les informations d'un patient
+- Supprimer un patient
+- **Recherche et filtrage par nom, âge, téléphone, email**
+- **Pagination avec options (5, 10, 25, 50 éléments par page)**
 
----
+### Gestion des Médecins
+- Ajouter un nouveau médecin
+- Voir les détails d'un médecin
+- Modifier les informations d'un médecin
+- Supprimer un médecin
+- **Recherche et filtrage par nom, spécialité, email**
+- **Pagination avec options (5, 10, 25, 50 éléments par page)**
 
-## 📝 Thème Choisi
-<!-- Indiquez le thème choisi parmi la liste ou votre sujet personnalisé -->
-*   **Thème :** Gestion Hospitalière
-*   **Description :** Application web complète pour la gestion des patients, médecins, prescriptions, rendez-vous et services médicaux. Développé avec HTML5/CSS3/JavaScript, interface responsive, graphiques interactifs et export de données.
+### Gestion des Prescriptions
+- Ajouter une prescription
+- Voir les détails d'une prescription
+- Modifier une prescription
+- Supprimer une prescription
+- **Recherche et filtrage par patient, médecin, médicament, date**
+- **Pagination avec options (5, 10, 25, 50 éléments par page)**
 
+### Gestion des Rendez-vous
+- Planifier un rendez-vous
+- Voir les détails d'un rendez-vous
+- Modifier un rendez-vous
+- Supprimer un rendez-vous
+- Gérer les statuts (Confirmé, En attente, Annulé)
+- **Recherche et filtrage par patient, médecin, motif, statut, date**
+- **Pagination avec options (5, 10, 25, 50 éléments par page)**
 
+### Gestion des Services
+- Ajouter un service médical
+- Voir les détails d'un service
+- Modifier un service
+- Supprimer un service
+- Gérer la disponibilité et les prix
+- **Recherche et filtrage par nom, description, durée, disponibilité**
+- **Pagination avec options (5, 10, 25, 50 éléments par page)**
 
----
-
-## ✅ État d'Avancement (Checklist)
-<!-- Cochez les cases [x] pour les fonctionnalités terminées. Laissez [ ] pour ce qui n'est pas fait. -->
-
-### Fonctionnalités Principales
-- [*] **CRUD 1 :** [patients] (Create, Read, Update, Delete)
-- [*] **CRUD 2 :** [Médecins]
-- [*] **CRUD 3 :** [Prescriptions]
-- [*] **CRUD 4 :** [Rendez-vous]
-- [*] **CRUD 5 :** [Services]
-- [*] **Recherche & Filtres** dans les tableaux
-- [*] **Pagination**
-
-### Dashboard & Data
-- [*] **KPIs :** Cartes avec chiffres clés (Total utilisateurs, revenus, etc.)
-- [*] **Chart 1 :** [Pie Chart - Age distribution of patients by age groups (0-18, 19-35, 36-50, 51-65, 65+)]
-- [*] **Chart 2 :** [Bar Chart - Appointment status distribution (Confirmed, Pending, Cancelled)]
-- [*] **Chart 3 :** [Line Chart - Prescriptions over time (monthly data for last 6 months)]
-- [*] **Chart 4 :** [Bar Chart - Service prices comparison]
-- [*] **Chart 5 :** [Doughnut Chart - Doctor specialties distribution]
-
-### Technique & Bonus
-- [*] **Export :** (PDF ou CSV)
-- [*] **Architecture :** Code organisé sans Framework (Vanilla JS)
-- [*] **Design :** Interface Responsive (Mobile/Tablette)
-
----
+### Tableau de Bord
+- Affichage des statistiques (patients, médecins, prescriptions, rendez-vous, services)
+- Navigation rapide entre les sections
+- Interface responsive
+- **5 graphiques interactifs (répartition par âge, statuts rendez-vous, prescriptions mensuelles, prix services, spécialités médecins)**
+- **Export des données (CSV et PDF)**
 
 ## 🛠 Stack Technique
 
-*   **HTML5 / CSS3** (Framework CSS utilisé : Bootstrap 5.3.0)
+*   **HTML5 / CSS3** (Framework CSS utilisé : **Bootstrap 5.3.0**)
 *   **JavaScript (ES6+)** (Vanilla JS obligatoire - Aucun framework JS utilisé)
-*   **Bibliothèques JS utilisées :** (Chart.js (pour les graphiques), Bootstrap 5.3.0 (composants UI))
+*   **Bibliothèques JS utilisées :** Chart.js (pour les graphiques), Bootstrap 5.3.0 (composants UI)
 
 ### APIs Utilisées
 <!-- Aucune API externe utilisée - Données stockées localement -->
@@ -73,7 +89,14 @@ projet de devloppement web
     *   Aucune API externe requise - Application fonctionnelle hors ligne
     *   Persistance automatique des données dans le navigateur
 
----
+## Technologies
+
+- HTML5
+- CSS3 avec Bootstrap 5.3.0
+- JavaScript ES6+
+- localStorage pour la persistance des données
+- Bootstrap Icons
+- Chart.js pour les graphiques
 
 ## ⚙️ Installation Locale
 
@@ -81,19 +104,72 @@ Pour lancer le projet localement :
 
 1.  Cloner le repo :
     ```bash
-    git clone https://github.com/Mouad05-mz/My-first-project.git
+    git clone https://github.com/votre-user/votre-repo.git
     ```
 2.  Ouvrir le dossier :
     ```bash
-    cd My-first-project
+    cd votre-dossier
     ```
 3.  Lancer l'application :
     *   Ouvrez simplement `index.html` dans votre navigateur.
     *   OU utilisez Live Server (VS Code Extension).
-  
-Initialiser le README
 
----
+## Utilisation
 
-## 📸 Captures d'écran (Optionnel)
-<!-- Vous pouvez ajouter ici 1 ou 2 screenshots de votre interface -->
+### Accès à l'Application
+1. Ouvrez `index.html` pour la page de connexion
+2. Entrez un identifiant et un mot de passe
+3. Cliquez sur "Connexion"
+4. Ouvrez `dashboard.html` pour utiliser l'application
+
+### Ajouter des Données
+1. Cliquez sur la section souhaitée dans la barre de navigation (Patients, Médecins, Prescriptions)
+2. Cliquez sur le bouton "Ajouter"
+3. Remplissez le formulaire
+4. Cliquez sur "Enregistrer"
+
+### Modifier des Données
+1. Ouvrez la section correspondante
+2. Cliquez sur le bouton "Modifier" (crayon jaune)
+3. Modifiez les informations
+4. Cliquez sur "Enregistrer"
+
+### Voir les Détails
+1. Cliquez sur le bouton "Voir" (œil bleu) pour afficher les détails
+
+### Supprimer des Données
+1. Cliquez sur le bouton "Supprimer" (poubelle rouge)
+2. Confirmez la suppression
+
+## Stockage des Données
+
+Les données sont stockées dans localStorage du navigateur. Pour voir ou réinitialiser les données:
+1. Ouvrez les outils développeur (F12)
+2. Allez dans "Application" → "Local Storage"
+3. Vous verrez les clés: `hospital_patients`, `hospital_doctors`, `hospital_prescriptions`
+
+## Améliorations Futures
+
+- Implémentation d'une authentification sécurisée
+- Connexion à une base de données
+- Rapport et statistiques avancées
+- Export des données (PDF, Excel)
+- Notifications et rappels
+- Interface mobile native
+
+## Navigateurs Supportés
+
+- Chrome 80+
+- Firefox 75+
+- Safari 13+
+- Edge 80+
+
+## Auteurs
+- Mouad Mezyan
+- Kamil Elhaiba
+- Marouane Younsi
+
+## Répartition du Travail
+- Mouad Mezyan : Structure HTML, dashboard, logique principale
+- Kamil Elhaiba : CSS & design
+- Marouane Younsi : Gestion patients / médecins
