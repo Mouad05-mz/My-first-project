@@ -148,7 +148,7 @@ function showServices(search = '', page = 1, itemsPerPage = 10) {
 }
 
 // Show add service modal
-function showAddServiceModal() {
+function showAddServiceModal(isEditing = false) {
     const modal = `
         <div class="modal fade" id="serviceModal" tabindex="-1">
             <div class="modal-dialog modal-lg">
@@ -203,9 +203,11 @@ function showAddServiceModal() {
     const modalElement = new bootstrap.Modal(document.getElementById('serviceModal'));
     modalElement.show();
 
-    // Clear form
-    document.getElementById('service-form').reset();
-    window.currentServiceId = null;
+    // Clear form only if not editing
+    if (!isEditing) {
+        document.getElementById('service-form').reset();
+        window.currentServiceId = null;
+    }
 }
 
 // Save service
@@ -244,14 +246,16 @@ function saveService() {
 function editService(id) {
     const service = services.find(s => s.id === id);
     if (service) {
-        showAddServiceModal();
-        document.getElementById('service-nom').value = service.nom;
-        document.getElementById('service-description').value = service.description;
-        document.getElementById('service-prix').value = service.prix;
-        document.getElementById('service-duree').value = service.duree;
-        document.getElementById('service-disponible').value = service.disponible.toString();
-        window.currentServiceId = id;
-        document.querySelector('.modal-title').textContent = 'Modifier un Service';
+        showAddServiceModal(true);
+        setTimeout(() => {
+            document.getElementById('service-nom').value = service.nom;
+            document.getElementById('service-description').value = service.description;
+            document.getElementById('service-prix').value = service.prix;
+            document.getElementById('service-duree').value = service.duree;
+            document.getElementById('service-disponible').value = service.disponible.toString();
+            window.currentServiceId = id;
+            document.querySelector('.modal-title').textContent = 'Modifier un Service';
+        }, 100);
     }
 }
 

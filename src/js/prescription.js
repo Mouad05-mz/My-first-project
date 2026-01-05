@@ -142,7 +142,7 @@ function showPrescriptions(search = '', page = 1, itemsPerPage = 10) {
 }
 
 // Show add prescription modal
-function showAddPrescriptionModal() {
+function showAddPrescriptionModal(isEditing = false) {
     // Get patients and doctors from global arrays
     const patientOptions = patients.map(p => `<option value="${p.id}">${p.nom}</option>`).join('');
     const doctorOptions = doctors.map(d => `<option value="${d.id}">${d.nom}</option>`).join('');
@@ -214,11 +214,13 @@ function showAddPrescriptionModal() {
     const modalElement = new bootstrap.Modal(document.getElementById('prescriptionModal'));
     modalElement.show();
 
-    // Clear form
-    document.getElementById('prescription-form').reset();
-    // Set default date to today
-    document.getElementById('prescription-date').valueAsDate = new Date();
-    window.currentPrescriptionId = null;
+    // Clear form only when adding new prescription
+    if (!isEditing) {
+        document.getElementById('prescription-form').reset();
+        // Set default date to today
+        document.getElementById('prescription-date').valueAsDate = new Date();
+        window.currentPrescriptionId = null;
+    }
 }
 
 // Save prescription
@@ -268,16 +270,19 @@ function savePrescription() {
 function editPrescription(id) {
     const prescription = prescriptions.find(p => p.id === id);
     if (prescription) {
-        showAddPrescriptionModal();
-        document.getElementById('prescription-patient').value = prescription.patientId;
-        document.getElementById('prescription-doctor').value = prescription.doctorId;
-        document.getElementById('prescription-medication').value = prescription.medication;
-        document.getElementById('prescription-dosage').value = prescription.dosage;
-        document.getElementById('prescription-duration').value = prescription.duration;
-        document.getElementById('prescription-date').value = prescription.date;
-        document.getElementById('prescription-notes').value = prescription.notes;
-        window.currentPrescriptionId = id;
-        document.querySelector('.modal-title').textContent = 'Modifier une Prescription';
+        showAddPrescriptionModal(true); // Pass true for editing
+        // Use setTimeout to ensure modal is fully loaded before populating fields
+        setTimeout(() => {
+            document.getElementById('prescription-patient').value = prescription.patientId;
+            document.getElementById('prescription-doctor').value = prescription.doctorId;
+            document.getElementById('prescription-medication').value = prescription.medication;
+            document.getElementById('prescription-dosage').value = prescription.dosage;
+            document.getElementById('prescription-duration').value = prescription.duration;
+            document.getElementById('prescription-date').value = prescription.date;
+            document.getElementById('prescription-notes').value = prescription.notes;
+            window.currentPrescriptionId = id;
+            document.querySelector('.modal-title').textContent = 'Modifier une Prescription';
+        }, 100);
     }
 }
 

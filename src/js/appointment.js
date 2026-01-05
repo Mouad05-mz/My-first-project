@@ -144,7 +144,7 @@ function showAppointments(search = '', page = 1, itemsPerPage = 10) {
 }
 
 // Show add appointment modal
-function showAddAppointmentModal() {
+function showAddAppointmentModal(isEditing = false) {
     // Get patients and doctors from global arrays
     const patientOptions = patients.map(p => `<option value="${p.id}">${p.nom}</option>`).join('');
     const doctorOptions = doctors.map(d => `<option value="${d.id}">${d.nom}</option>`).join('');
@@ -220,11 +220,13 @@ function showAddAppointmentModal() {
     const modalElement = new bootstrap.Modal(document.getElementById('appointmentModal'));
     modalElement.show();
 
-    // Clear form
-    document.getElementById('appointment-form').reset();
-    // Set default date to today
-    document.getElementById('appointment-date').valueAsDate = new Date();
-    window.currentAppointmentId = null;
+    // Clear form only when adding new appointment
+    if (!isEditing) {
+        document.getElementById('appointment-form').reset();
+        // Set default date to today
+        document.getElementById('appointment-date').valueAsDate = new Date();
+        window.currentAppointmentId = null;
+    }
 }
 
 // Save appointment
@@ -274,16 +276,19 @@ function saveAppointment() {
 function editAppointment(id) {
     const appointment = appointments.find(a => a.id === id);
     if (appointment) {
-        showAddAppointmentModal();
-        document.getElementById('appointment-patient').value = appointment.patientId;
-        document.getElementById('appointment-doctor').value = appointment.doctorId;
-        document.getElementById('appointment-date').value = appointment.date;
-        document.getElementById('appointment-time').value = appointment.time;
-        document.getElementById('appointment-reason').value = appointment.reason;
-        document.getElementById('appointment-status').value = appointment.status;
-        document.getElementById('appointment-notes').value = appointment.notes;
-        window.currentAppointmentId = id;
-        document.querySelector('.modal-title').textContent = 'Modifier un Rendez-vous';
+        showAddAppointmentModal(true); // Pass true for editing
+        // Use setTimeout to ensure modal is fully loaded before populating fields
+        setTimeout(() => {
+            document.getElementById('appointment-patient').value = appointment.patientId;
+            document.getElementById('appointment-doctor').value = appointment.doctorId;
+            document.getElementById('appointment-date').value = appointment.date;
+            document.getElementById('appointment-time').value = appointment.time;
+            document.getElementById('appointment-reason').value = appointment.reason;
+            document.getElementById('appointment-status').value = appointment.status;
+            document.getElementById('appointment-notes').value = appointment.notes;
+            window.currentAppointmentId = id;
+            document.querySelector('.modal-title').textContent = 'Modifier un Rendez-vous';
+        }, 100);
     }
 }
 

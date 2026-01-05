@@ -135,7 +135,7 @@ function showDoctors(search = '', page = 1, itemsPerPage = 10) {
 }
 
 // Show add doctor modal
-function showAddDoctorModal() {
+function showAddDoctorModal(isEditing = false) {
     const modal = `
         <div class="modal fade" id="doctorModal" tabindex="-1">
             <div class="modal-dialog">
@@ -195,9 +195,11 @@ function showAddDoctorModal() {
     const modalElement = new bootstrap.Modal(document.getElementById('doctorModal'));
     modalElement.show();
 
-    // Clear form
-    document.getElementById('doctor-form').reset();
-    window.currentDoctorId = null;
+    // Clear form only when adding new doctor
+    if (!isEditing) {
+        document.getElementById('doctor-form').reset();
+        window.currentDoctorId = null;
+    }
 }
 
 // Save doctor
@@ -236,14 +238,17 @@ function saveDoctor() {
 function editDoctor(id) {
     const doctor = doctors.find(d => d.id === id);
     if (doctor) {
-        showAddDoctorModal();
-        document.getElementById('doctor-nom').value = doctor.nom;
-        document.getElementById('doctor-specialite').value = doctor.specialite;
-        document.getElementById('doctor-telephone').value = doctor.telephone;
-        document.getElementById('doctor-email').value = doctor.email;
-        document.getElementById('doctor-experience').value = doctor.experience;
-        window.currentDoctorId = id;
-        document.querySelector('.modal-title').textContent = 'Modifier un Médecin';
+        showAddDoctorModal(true); // Pass true for editing
+        // Use setTimeout to ensure modal is fully loaded before populating fields
+        setTimeout(() => {
+            document.getElementById('doctor-nom').value = doctor.nom;
+            document.getElementById('doctor-specialite').value = doctor.specialite;
+            document.getElementById('doctor-telephone').value = doctor.telephone;
+            document.getElementById('doctor-email').value = doctor.email;
+            document.getElementById('doctor-experience').value = doctor.experience;
+            window.currentDoctorId = id;
+            document.querySelector('.modal-title').textContent = 'Modifier un Médecin';
+        }, 100);
     }
 }
 

@@ -98,12 +98,21 @@ Ce projet est une application web pour gérer les informations des patients, des
 - Bootstrap Icons
 - Chart.js pour les graphiques
 
-## Installation
+## ⚙️ Installation Locale
 
-1. Téléchargez les fichiers du projet
-2. Ouvrez `index.html` dans votre navigateur
-3. Connectez-vous avec n'importe quel identifiant et mot de passe
-4. Ouvrez `dashboard.html` pour accéder à l'application principale
+Pour lancer le projet localement :
+
+1.  Cloner le repo :
+    ```bash
+    git clone https://github.com/votre-user/votre-repo.git
+    ```
+2.  Ouvrir le dossier :
+    ```bash
+    cd votre-dossier
+    ```
+3.  Lancer l'application :
+    *   Ouvrez simplement `index.html` dans votre navigateur.
+    *   OU utilisez Live Server (VS Code Extension).
 
 ## Utilisation
 

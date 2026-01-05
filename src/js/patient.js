@@ -142,7 +142,7 @@ function showPatients(searchTerm = '', currentPage = 1, itemsPerPage = 10) {
 }
 
 // Show add patient modal
-function showAddPatientModal() {
+function showAddPatientModal(isEditing = false) {
     const modal = `
         <div class="modal fade" id="patientModal" tabindex="-1">
             <div class="modal-dialog">
@@ -192,9 +192,11 @@ function showAddPatientModal() {
     const modalElement = new bootstrap.Modal(document.getElementById('patientModal'));
     modalElement.show();
 
-    // Clear form
-    document.getElementById('patient-form').reset();
-    window.currentPatientId = null;
+    // Clear form only when adding new patient
+    if (!isEditing) {
+        document.getElementById('patient-form').reset();
+        window.currentPatientId = null;
+    }
 }
 
 // Save patient
@@ -233,14 +235,17 @@ function savePatient() {
 function editPatient(id) {
     const patient = patients.find(p => p.id === id);
     if (patient) {
-        showAddPatientModal();
-        document.getElementById('patient-nom').value = patient.nom;
-        document.getElementById('patient-age').value = patient.age;
-        document.getElementById('patient-telephone').value = patient.telephone;
-        document.getElementById('patient-email').value = patient.email;
-        document.getElementById('patient-adresse').value = patient.adresse;
-        window.currentPatientId = id;
-        document.querySelector('.modal-title').textContent = 'Modifier un Patient';
+        showAddPatientModal(true); // Pass true for editing
+        // Use setTimeout to ensure modal is fully loaded before populating fields
+        setTimeout(() => {
+            document.getElementById('patient-nom').value = patient.nom;
+            document.getElementById('patient-age').value = patient.age;
+            document.getElementById('patient-telephone').value = patient.telephone;
+            document.getElementById('patient-email').value = patient.email;
+            document.getElementById('patient-adresse').value = patient.adresse;
+            window.currentPatientId = id;
+            document.querySelector('.modal-title').textContent = 'Modifier un Patient';
+        }, 100);
     }
 }
 
