@@ -6,6 +6,12 @@ Système de gestion hospitalière développé en HTML, CSS et JavaScript. L'appl
 
 Ce projet est une application web pour gérer les informations des patients, des médecins et des prescriptions médicales. Les données sont stockées localement dans le navigateur et persistent entre les sessions.
 
+## Live Demo
+
+**Visit the website:**  
+
+https://mouad05-mz.github.io/My-first-project/
+
 ## Structure du Projet
 
 ```
@@ -197,4 +203,5 @@ Cette version du système hospitalier a été simplifiée pour :
 ## Répartition du Travail
 - Mouad Mezyan : Structure HTML, dashboard, logique principale
 - Kamil Elhaiba : CSS & design
+
 - Marouane Younsi : Gestion patients / médecins
