@@ -26,77 +26,88 @@ Ce projet est une application web pour gérer les informations des patients, des
         └── service.js      # Gestion des services
 ```
 
-## Fonctionnalités
+# Hospital Management System - Simplified Version
+
+Système de gestion hospitalière simplifié développé en HTML, CSS et JavaScript. Cette version est conçue pour être facilement compréhensible lors d'une présentation.
+
+## Description
+
+Ce projet est une application web simplifiée pour gérer les informations des patients, médecins, prescriptions, rendez-vous et services. Les données sont stockées localement dans le navigateur. Cette version a été simplifiée pour faciliter la compréhension du code lors d'une présentation.
+
+## Structure du Projet
+
+```
+├── index.html              # Page de connexion
+├── dashboard.html          # Interface principale
+├── README.md              # Documentation
+└── src/
+    ├── css/
+    │   ├── style.css       # Styles de la page de connexion
+    │   ├── dashboard.css   # Styles du tableau de bord
+    │   └── patient.css     # Styles des tableaux
+    └── js/
+        ├── app.js          # Logique de navigation
+        ├── patient.js      # Gestion des patients
+        ├── doctor.js       # Gestion des médecins
+        ├── prescription.js # Gestion des prescriptions
+        ├── appointment.js  # Gestion des rendez-vous
+        └── service.js      # Gestion des services
+```
+
+## Fonctionnalités Simplifiées
 
 ### Gestion des Patients
 - Ajouter un nouveau patient
-- Voir les détails d'un patient
 - Modifier les informations d'un patient
 - Supprimer un patient
-- **Recherche et filtrage par nom, âge, téléphone, email**
-- **Pagination avec options (5, 10, 25, 50 éléments par page)**
+- Affichage simple en tableau
 
 ### Gestion des Médecins
 - Ajouter un nouveau médecin
-- Voir les détails d'un médecin
 - Modifier les informations d'un médecin
 - Supprimer un médecin
-- **Recherche et filtrage par nom, spécialité, email**
-- **Pagination avec options (5, 10, 25, 50 éléments par page)**
+- Affichage simple en tableau
 
 ### Gestion des Prescriptions
 - Ajouter une prescription
-- Voir les détails d'une prescription
 - Modifier une prescription
 - Supprimer une prescription
-- **Recherche et filtrage par patient, médecin, médicament, date**
-- **Pagination avec options (5, 10, 25, 50 éléments par page)**
+- Affichage simple en tableau
 
 ### Gestion des Rendez-vous
 - Planifier un rendez-vous
-- Voir les détails d'un rendez-vous
 - Modifier un rendez-vous
 - Supprimer un rendez-vous
-- Gérer les statuts (Confirmé, En attente, Annulé)
-- **Recherche et filtrage par patient, médecin, motif, statut, date**
-- **Pagination avec options (5, 10, 25, 50 éléments par page)**
+- Affichage simple en tableau
 
 ### Gestion des Services
 - Ajouter un service médical
-- Voir les détails d'un service
 - Modifier un service
 - Supprimer un service
-- Gérer la disponibilité et les prix
-- **Recherche et filtrage par nom, description, durée, disponibilité**
-- **Pagination avec options (5, 10, 25, 50 éléments par page)**
+- Affichage simple en tableau
 
 ### Tableau de Bord
-- Affichage des statistiques (patients, médecins, prescriptions, rendez-vous, services)
-- Navigation rapide entre les sections
-- Interface responsive
-- **5 graphiques interactifs (répartition par âge, statuts rendez-vous, prescriptions mensuelles, prix services, spécialités médecins)**
-- **Export des données (CSV et PDF)**
+- Affichage des compteurs pour chaque section
+- Navigation simple par clic sur les cartes
+- Interface claire et épurée
 
 ## 🛠 Stack Technique
 
 *   **HTML5 / CSS3** (Framework CSS utilisé : **Bootstrap 5.3.0**)
-*   **JavaScript (ES6+)** (Vanilla JS obligatoire - Aucun framework JS utilisé)
-*   **Bibliothèques JS utilisées :** Chart.js (pour les graphiques), Bootstrap 5.3.0 (composants UI)
+*   **JavaScript (ES6+)** (Vanilla JS - code simplifié pour la présentation)
+*   **Bibliothèques JS :** Bootstrap 5.3.0 (composants UI)
 
-### APIs Utilisées
-<!-- Aucune API externe utilisée - Données stockées localement -->
-*   **Source des données : localStorage (navigateur) - Données mockées/persistées localement**
-    *   Aucune API externe requise - Application fonctionnelle hors ligne
-    *   Persistance automatique des données dans le navigateur
+### Stockage des Données
+*   **localStorage** - Données persistées localement dans le navigateur
+*   Aucune API externe - Application fonctionnelle hors ligne
 
 ## Technologies
 
 - HTML5
 - CSS3 avec Bootstrap 5.3.0
-- JavaScript ES6+
+- JavaScript ES6+ (simplifié)
 - localStorage pour la persistance des données
 - Bootstrap Icons
-- Chart.js pour les graphiques
 
 ## ⚙️ Installation Locale
 
@@ -118,27 +129,28 @@ Pour lancer le projet localement :
 
 ### Accès à l'Application
 1. Ouvrez `index.html` pour la page de connexion
-2. Entrez un identifiant et un mot de passe
+2. Entrez un identifiant et un mot de passe (n'importe lesquels)
 3. Cliquez sur "Connexion"
-4. Ouvrez `dashboard.html` pour utiliser l'application
+4. L'application redirige automatiquement vers `dashboard.html`
+
+### Navigation
+- Utilisez le menu latéral ou cliquez sur les cartes du dashboard
+- Chaque section affiche un tableau simple avec les données
+- Boutons "Ajouter", "Modifier", "Supprimer" pour chaque élément
 
 ### Ajouter des Données
-1. Cliquez sur la section souhaitée dans la barre de navigation (Patients, Médecins, Prescriptions)
+1. Cliquez sur la section souhaitée
 2. Cliquez sur le bouton "Ajouter"
-3. Remplissez le formulaire
+3. Remplissez le formulaire dans la modale
 4. Cliquez sur "Enregistrer"
 
 ### Modifier des Données
-1. Ouvrez la section correspondante
-2. Cliquez sur le bouton "Modifier" (crayon jaune)
-3. Modifiez les informations
-4. Cliquez sur "Enregistrer"
-
-### Voir les Détails
-1. Cliquez sur le bouton "Voir" (œil bleu) pour afficher les détails
+1. Dans le tableau, cliquez sur "Modifier" (crayon)
+2. Modifiez les informations dans la modale
+3. Cliquez sur "Enregistrer"
 
 ### Supprimer des Données
-1. Cliquez sur le bouton "Supprimer" (poubelle rouge)
+1. Cliquez sur "Supprimer" (poubelle rouge)
 2. Confirmez la suppression
 
 ## Stockage des Données
@@ -148,14 +160,27 @@ Les données sont stockées dans localStorage du navigateur. Pour voir ou réini
 2. Allez dans "Application" → "Local Storage"
 3. Vous verrez les clés: `hospital_patients`, `hospital_doctors`, `hospital_prescriptions`
 
-## Améliorations Futures
+## Version Simplifiée
 
-- Implémentation d'une authentification sécurisée
-- Connexion à une base de données
-- Rapport et statistiques avancées
-- Export des données (PDF, Excel)
-- Notifications et rappels
-- Interface mobile native
+Cette version du système hospitalier a été simplifiée pour :
+- Faciliter la compréhension du code lors d'une présentation
+- Montrer les concepts de base du JavaScript
+- Éviter la complexité des fonctionnalités avancées
+
+### Fonctionnalités supprimées dans cette version :
+- Recherche et filtrage
+- Pagination
+- Graphiques et statistiques
+- Export des données
+- Fonctions "Voir les détails"
+- Authentification sécurisée
+
+### Fonctionnalités conservées :
+- CRUD basique (Créer, Lire, Modifier, Supprimer)
+- Navigation simple
+- Modales Bootstrap
+- Stockage localStorage
+- Interface responsive
 
 ## Navigateurs Supportés
 

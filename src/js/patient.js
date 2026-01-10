@@ -35,51 +35,13 @@ function getPatientCount() {
 }
 
 // Show patients table
-function showPatients(searchTerm = '', currentPage = 1, itemsPerPage = 10) {
-    // Filter patients based on search term
-    let filteredPatients = patients;
-    if (searchTerm) {
-        filteredPatients = patients.filter(patient =>
-            patient.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            patient.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            patient.telephone.includes(searchTerm)
-        );
-    }
-
-    // Calculate pagination
-    const totalItems = filteredPatients.length;
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const paginatedPatients = filteredPatients.slice(startIndex, endIndex);
-
+function showPatients() {
     const content = `
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h3>Gestion des Patients</h3>
             <button class="btn btn-success" onclick="showAddPatientModal()">
                 <i class="bi bi-plus-circle"></i> Ajouter Patient
             </button>
-        </div>
-
-        <!-- Search and Filter -->
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-search"></i></span>
-                    <input type="text" class="form-control" id="patient-search" placeholder="Rechercher par nom, email ou téléphone..." value="${searchTerm}" onkeyup="handlePatientSearch()">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <select class="form-control" id="patient-items-per-page" onchange="handlePatientSearch()">
-                    <option value="5" ${itemsPerPage == 5 ? 'selected' : ''}>5 par page</option>
-                    <option value="10" ${itemsPerPage == 10 ? 'selected' : ''}>10 par page</option>
-                    <option value="25" ${itemsPerPage == 25 ? 'selected' : ''}>25 par page</option>
-                    <option value="50" ${itemsPerPage == 50 ? 'selected' : ''}>50 par page</option>
-                </select>
-            </div>
-            <div class="col-md-3 text-end">
-                <small class="text-muted">Total: ${totalItems} patients</small>
-            </div>
         </div>
 
         <div class="table-responsive">
@@ -95,7 +57,7 @@ function showPatients(searchTerm = '', currentPage = 1, itemsPerPage = 10) {
                     </tr>
                 </thead>
                 <tbody>
-                    ${paginatedPatients.map(patient => `
+                    ${patients.map(patient => `
                         <tr>
                             <td>${patient.id}</td>
                             <td>${patient.nom}</td>
@@ -103,9 +65,6 @@ function showPatients(searchTerm = '', currentPage = 1, itemsPerPage = 10) {
                             <td>${patient.telephone}</td>
                             <td>${patient.email}</td>
                             <td>
-                                <button class="btn btn-info btn-sm me-1" onclick="viewPatient(${patient.id})">
-                                    <i class="bi bi-eye"></i> Voir
-                                </button>
                                 <button class="btn btn-warning btn-sm me-1" onclick="editPatient(${patient.id})">
                                     <i class="bi bi-pencil"></i> Modifier
                                 </button>
@@ -118,25 +77,6 @@ function showPatients(searchTerm = '', currentPage = 1, itemsPerPage = 10) {
                 </tbody>
             </table>
         </div>
-
-        <!-- Pagination -->
-        ${totalPages > 1 ? `
-        <nav aria-label="Patient pagination" class="mt-3">
-            <ul class="pagination justify-content-center">
-                <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-                    <a class="page-link" href="#" onclick="changePatientPage(${currentPage - 1})">Précédent</a>
-                </li>
-                ${Array.from({length: totalPages}, (_, i) => i + 1).map(page => `
-                    <li class="page-item ${page === currentPage ? 'active' : ''}">
-                        <a class="page-link" href="#" onclick="changePatientPage(${page})">${page}</a>
-                    </li>
-                `).join('')}
-                <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-                    <a class="page-link" href="#" onclick="changePatientPage(${currentPage + 1})">Suivant</a>
-                </li>
-            </ul>
-        </nav>
-        ` : ''}
     `;
     document.getElementById('main-content').innerHTML = content;
 }
@@ -227,7 +167,7 @@ function savePatient() {
 
     savePatients();
     bootstrap.Modal.getInstance(document.getElementById('patientModal')).hide();
-    showPatients(currentPatientSearch, currentPatientPage, currentPatientItemsPerPage);
+    showPatients();
     showAlert('Patient enregistré!', 'success');
 }
 
@@ -254,44 +194,8 @@ function deletePatient(id) {
     if (confirm('Supprimer ce patient ?')) {
         patients = patients.filter(p => p.id !== id);
         savePatients();
-        showPatients(currentPatientSearch, currentPatientPage, currentPatientItemsPerPage);
+        showPatients();
         showAlert('Patient supprimé!', 'danger');
-    }
-}
-
-// View patient
-function viewPatient(id) {
-    const patient = patients.find(p => p.id === id);
-    if (patient) {
-        const modal = `
-            <div class="modal fade" id="viewModal" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Détails du Patient</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p><strong>ID:</strong> ${patient.id}</p>
-                            <p><strong>Nom:</strong> ${patient.nom}</p>
-                            <p><strong>Âge:</strong> ${patient.age} ans</p>
-                            <p><strong>Téléphone:</strong> ${patient.telephone}</p>
-                            <p><strong>Email:</strong> ${patient.email}</p>
-                            <p><strong>Adresse:</strong> ${patient.adresse || 'N/A'}</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        const existing = document.getElementById('viewModal');
-        if (existing) existing.remove();
-
-        document.body.insertAdjacentHTML('beforeend', modal);
-        new bootstrap.Modal(document.getElementById('viewModal')).show();
     }
 }
 
@@ -310,22 +214,3 @@ function showAlert(message, type) {
 
 // Initialize patients when script loads
 loadPatients();
-
-// Global variables for pagination and search
-let currentPatientPage = 1;
-let currentPatientSearch = '';
-let currentPatientItemsPerPage = 10;
-
-// Handle patient search and filter
-function handlePatientSearch() {
-    currentPatientSearch = document.getElementById('patient-search').value;
-    currentPatientItemsPerPage = parseInt(document.getElementById('patient-items-per-page').value);
-    currentPatientPage = 1; // Reset to first page
-    showPatients(currentPatientSearch, currentPatientPage, currentPatientItemsPerPage);
-}
-
-// Change patient page
-function changePatientPage(page) {
-    currentPatientPage = page;
-    showPatients(currentPatientSearch, currentPatientPage, currentPatientItemsPerPage);
-}

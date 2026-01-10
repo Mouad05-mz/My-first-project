@@ -34,45 +34,14 @@ function getDoctorCount() {
     return doctors.length;
 }
 
-// Show doctors table with search, filter and pagination
-function showDoctors(search = '', page = 1, itemsPerPage = 10) {
-    // Filter doctors based on search
-    let filteredDoctors = doctors.filter(doctor =>
-        doctor.nom.toLowerCase().includes(search.toLowerCase()) ||
-        doctor.specialite.toLowerCase().includes(search.toLowerCase()) ||
-        doctor.email.toLowerCase().includes(search.toLowerCase())
-    );
-
-    const totalItems = filteredDoctors.length;
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-    const startIndex = (page - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const paginatedDoctors = filteredDoctors.slice(startIndex, endIndex);
-
+// Show doctors table
+function showDoctors() {
     const content = `
-        <div class="d-flex justify-content-between mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
             <h3>Gestion des Médecins</h3>
             <button class="btn btn-success" onclick="showAddDoctorModal()">
                 <i class="bi bi-plus-circle"></i> Ajouter Médecin
             </button>
-        </div>
-
-        <!-- Search and Filter Controls -->
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <input type="text" id="doctor-search" class="form-control" placeholder="Rechercher par nom, spécialité ou email..." value="${search}" onkeyup="handleDoctorSearch()">
-            </div>
-            <div class="col-md-3">
-                <select id="doctor-items-per-page" class="form-select" onchange="handleDoctorSearch()">
-                    <option value="5" ${itemsPerPage === 5 ? 'selected' : ''}>5 par page</option>
-                    <option value="10" ${itemsPerPage === 10 ? 'selected' : ''}>10 par page</option>
-                    <option value="25" ${itemsPerPage === 25 ? 'selected' : ''}>25 par page</option>
-                    <option value="50" ${itemsPerPage === 50 ? 'selected' : ''}>50 par page</option>
-                </select>
-            </div>
-            <div class="col-md-3 text-end">
-                <small class="text-muted">Total: ${totalItems} médecins</small>
-            </div>
         </div>
 
         <div class="table-responsive">
@@ -88,7 +57,7 @@ function showDoctors(search = '', page = 1, itemsPerPage = 10) {
                     </tr>
                 </thead>
                 <tbody>
-                    ${paginatedDoctors.map(doctor => `
+                    ${doctors.map(doctor => `
                         <tr>
                             <td>${doctor.id}</td>
                             <td>${doctor.nom}</td>
@@ -96,9 +65,6 @@ function showDoctors(search = '', page = 1, itemsPerPage = 10) {
                             <td>${doctor.telephone}</td>
                             <td>${doctor.email}</td>
                             <td>
-                                <button class="btn btn-info btn-sm me-1" onclick="viewDoctor(${doctor.id})">
-                                    <i class="bi bi-eye"></i> Voir
-                                </button>
                                 <button class="btn btn-warning btn-sm me-1" onclick="editDoctor(${doctor.id})">
                                     <i class="bi bi-pencil"></i> Modifier
                                 </button>
@@ -111,25 +77,6 @@ function showDoctors(search = '', page = 1, itemsPerPage = 10) {
                 </tbody>
             </table>
         </div>
-
-        <!-- Pagination -->
-        ${totalPages > 1 ? `
-        <nav aria-label="Doctor pagination">
-            <ul class="pagination justify-content-center">
-                <li class="page-item ${page === 1 ? 'disabled' : ''}">
-                    <a class="page-link" href="#" onclick="changeDoctorPage(${page - 1})">Précédent</a>
-                </li>
-                ${Array.from({length: totalPages}, (_, i) => i + 1).map(p => `
-                    <li class="page-item ${p === page ? 'active' : ''}">
-                        <a class="page-link" href="#" onclick="changeDoctorPage(${p})">${p}</a>
-                    </li>
-                `).join('')}
-                <li class="page-item ${page === totalPages ? 'disabled' : ''}">
-                    <a class="page-link" href="#" onclick="changeDoctorPage(${page + 1})">Suivant</a>
-                </li>
-            </ul>
-        </nav>
-        ` : ''}
     `;
     document.getElementById('main-content').innerHTML = content;
 }
@@ -230,7 +177,7 @@ function saveDoctor() {
 
     saveDoctors();
     bootstrap.Modal.getInstance(document.getElementById('doctorModal')).hide();
-    showDoctors(currentDoctorSearch, currentDoctorPage, currentDoctorItemsPerPage);
+    showDoctors();
     showAlert('Médecin enregistré!', 'success');
 }
 
@@ -257,7 +204,7 @@ function deleteDoctor(id) {
     if (confirm('Supprimer ce médecin ?')) {
         doctors = doctors.filter(d => d.id !== id);
         saveDoctors();
-        showDoctors(currentDoctorSearch, currentDoctorPage, currentDoctorItemsPerPage);
+        showDoctors();
         showAlert('Médecin supprimé!', 'danger');
     }
 }
@@ -313,22 +260,3 @@ function showAlert(message, type) {
 
 // Initialize doctors when script loads
 loadDoctors();
-
-// Global variables for pagination and search
-let currentDoctorPage = 1;
-let currentDoctorSearch = '';
-let currentDoctorItemsPerPage = 10;
-
-// Handle doctor search and filter
-function handleDoctorSearch() {
-    currentDoctorSearch = document.getElementById('doctor-search').value;
-    currentDoctorItemsPerPage = parseInt(document.getElementById('doctor-items-per-page').value);
-    currentDoctorPage = 1; // Reset to first page
-    showDoctors(currentDoctorSearch, currentDoctorPage, currentDoctorItemsPerPage);
-}
-
-// Change doctor page
-function changeDoctorPage(page) {
-    currentDoctorPage = page;
-    showDoctors(currentDoctorSearch, currentDoctorPage, currentDoctorItemsPerPage);
-}

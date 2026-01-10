@@ -37,47 +37,16 @@ function getAppointmentCount() {
     return appointments.length;
 }
 
-// Show appointments table with search, filter and pagination
-function showAppointments(search = '', page = 1, itemsPerPage = 10) {
-    // Filter appointments based on search
-    let filteredAppointments = appointments.filter(appointment =>
-        appointment.patientName.toLowerCase().includes(search.toLowerCase()) ||
-        appointment.doctorName.toLowerCase().includes(search.toLowerCase()) ||
-        appointment.reason.toLowerCase().includes(search.toLowerCase()) ||
-        appointment.status.toLowerCase().includes(search.toLowerCase()) ||
-        appointment.date.includes(search)
-    );
-
-    const totalItems = filteredAppointments.length;
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-    const startIndex = (page - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const paginatedAppointments = filteredAppointments.slice(startIndex, endIndex);
-
+// Show appointments table
+function showAppointments() {
+    loadAppointments();
+    
     const content = `
-        <div class="d-flex justify-content-between mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
             <h3>Gestion des Rendez-vous</h3>
             <button class="btn btn-success" onclick="showAddAppointmentModal()">
                 <i class="bi bi-plus-circle"></i> Ajouter Rendez-vous
             </button>
-        </div>
-
-        <!-- Search and Filter Controls -->
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <input type="text" id="appointment-search" class="form-control" placeholder="Rechercher par patient, médecin, motif, statut ou date..." value="${search}" onkeyup="handleAppointmentSearch()">
-            </div>
-            <div class="col-md-3">
-                <select id="appointment-items-per-page" class="form-select" onchange="handleAppointmentSearch()">
-                    <option value="5" ${itemsPerPage === 5 ? 'selected' : ''}>5 par page</option>
-                    <option value="10" ${itemsPerPage === 10 ? 'selected' : ''}>10 par page</option>
-                    <option value="25" ${itemsPerPage === 25 ? 'selected' : ''}>25 par page</option>
-                    <option value="50" ${itemsPerPage === 50 ? 'selected' : ''}>50 par page</option>
-                </select>
-            </div>
-            <div class="col-md-3 text-end">
-                <small class="text-muted">Total: ${totalItems} rendez-vous</small>
-            </div>
         </div>
 
         <div class="table-responsive">
@@ -89,65 +58,50 @@ function showAppointments(search = '', page = 1, itemsPerPage = 10) {
                         <th>Médecin</th>
                         <th>Date</th>
                         <th>Heure</th>
-                        <th>Motif</th>
                         <th>Statut</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    ${paginatedAppointments.map(appointment => `
-                        <tr>
-                            <td>${appointment.id}</td>
-                            <td>${appointment.patientName}</td>
-                            <td>${appointment.doctorName}</td>
-                            <td>${appointment.date}</td>
-                            <td>${appointment.time}</td>
-                            <td>${appointment.reason}</td>
-                            <td><span class="badge bg-${appointment.status === 'Confirmé' ? 'success' : appointment.status === 'Annulé' ? 'danger' : 'warning'}">${appointment.status}</span></td>
-                            <td>
-                                <button class="btn btn-info btn-sm me-1" onclick="viewAppointment(${appointment.id})">
-                                    <i class="bi bi-eye"></i> Voir
-                                </button>
-                                <button class="btn btn-warning btn-sm me-1" onclick="editAppointment(${appointment.id})">
-                                    <i class="bi bi-pencil"></i> Modifier
-                                </button>
-                                <button class="btn btn-danger btn-sm" onclick="deleteAppointment(${appointment.id})">
-                                    <i class="bi bi-trash"></i> Supprimer
-                                </button>
-                            </td>
-                        </tr>
-                    `).join('')}
+                    ${appointments.length === 0 ? 
+                        '<tr><td colspan="7" class="text-center">Aucun rendez-vous trouvé. Cliquez sur "Ajouter Rendez-vous" pour en créer un.</td></tr>' : 
+                        appointments.map(appointment => 
+                            `<tr>
+                                <td>${appointment.id}</td>
+                                <td>${appointment.patientName || 'N/A'}</td>
+                                <td>${appointment.doctorName || 'N/A'}</td>
+                                <td>${appointment.date || 'N/A'}</td>
+                                <td>${appointment.time || 'N/A'}</td>
+                                <td>${appointment.status || 'N/A'}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm me-1" onclick="editAppointment(${appointment.id})">
+                                        <i class="bi bi-pencil"></i> Modifier
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteAppointment(${appointment.id})">
+                                        <i class="bi bi-trash"></i> Supprimer
+                                    </button>
+                                </td>
+                            </tr>`
+                        ).join('')}
                 </tbody>
             </table>
         </div>
-
-        <!-- Pagination -->
-        ${totalPages > 1 ? `
-        <nav aria-label="Appointment pagination">
-            <ul class="pagination justify-content-center">
-                <li class="page-item ${page === 1 ? 'disabled' : ''}">
-                    <a class="page-link" href="#" onclick="changeAppointmentPage(${page - 1})">Précédent</a>
-                </li>
-                ${Array.from({length: totalPages}, (_, i) => i + 1).map(p => `
-                    <li class="page-item ${p === page ? 'active' : ''}">
-                        <a class="page-link" href="#" onclick="changeAppointmentPage(${p})">${p}</a>
-                    </li>
-                `).join('')}
-                <li class="page-item ${page === totalPages ? 'disabled' : ''}">
-                    <a class="page-link" href="#" onclick="changeAppointmentPage(${page + 1})">Suivant</a>
-                </li>
-            </ul>
-        </nav>
-        ` : ''}
     `;
-    document.getElementById('main-content').innerHTML = content;
+    
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) {
+        mainContent.innerHTML = content;
+    }
 }
 
 // Show add appointment modal
 function showAddAppointmentModal(isEditing = false) {
-    // Get patients and doctors from global arrays
-    const patientOptions = patients.map(p => `<option value="${p.id}">${p.nom}</option>`).join('');
-    const doctorOptions = doctors.map(d => `<option value="${d.id}">${d.nom}</option>`).join('');
+    // Load data from localStorage
+    const patientsData = JSON.parse(localStorage.getItem('hospital_patients') || '[]');
+    const doctorsData = JSON.parse(localStorage.getItem('hospital_doctors') || '[]');
+    
+    const patientOptions = patientsData.map(p => `<option value="${p.id}">${p.nom}</option>`).join('');
+    const doctorOptions = doctorsData.map(d => `<option value="${d.id}">${d.nom}</option>`).join('');
 
     const modal = `
         <div class="modal fade" id="appointmentModal" tabindex="-1">
@@ -240,9 +194,12 @@ function saveAppointment() {
     const patientId = parseInt(document.getElementById('appointment-patient').value);
     const doctorId = parseInt(document.getElementById('appointment-doctor').value);
 
-    // Get patient and doctor names
-    const patient = patients.find(p => p.id === patientId);
-    const doctor = doctors.find(d => d.id === doctorId);
+    // Get patient and doctor names from localStorage
+    const patientsData = JSON.parse(localStorage.getItem('hospital_patients') || '[]');
+    const doctorsData = JSON.parse(localStorage.getItem('hospital_doctors') || '[]');
+    
+    const patient = patientsData.find(p => p.id === patientId);
+    const doctor = doctorsData.find(d => d.id === doctorId);
 
     const appointment = {
         id: window.currentAppointmentId || Date.now(),
@@ -268,7 +225,7 @@ function saveAppointment() {
 
     saveAppointments();
     bootstrap.Modal.getInstance(document.getElementById('appointmentModal')).hide();
-    showAppointments(currentAppointmentSearch, currentAppointmentPage, currentAppointmentItemsPerPage);
+    showAppointments();
     showAlert('Rendez-vous enregistré!', 'success');
 }
 
@@ -297,46 +254,8 @@ function deleteAppointment(id) {
     if (confirm('Supprimer ce rendez-vous ?')) {
         appointments = appointments.filter(a => a.id !== id);
         saveAppointments();
-        showAppointments(currentAppointmentSearch, currentAppointmentPage, currentAppointmentItemsPerPage);
+        showAppointments();
         showAlert('Rendez-vous supprimé!', 'danger');
-    }
-}
-
-// View appointment
-function viewAppointment(id) {
-    const appointment = appointments.find(a => a.id === id);
-    if (appointment) {
-        const modal = `
-            <div class="modal fade" id="viewModal" tabindex="-1">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Détails du Rendez-vous</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p><strong>ID:</strong> ${appointment.id}</p>
-                            <p><strong>Patient:</strong> ${appointment.patientName}</p>
-                            <p><strong>Médecin:</strong> ${appointment.doctorName}</p>
-                            <p><strong>Date:</strong> ${appointment.date}</p>
-                            <p><strong>Heure:</strong> ${appointment.time}</p>
-                            <p><strong>Motif:</strong> ${appointment.reason}</p>
-                            <p><strong>Statut:</strong> <span class="badge bg-${appointment.status === 'Confirmé' ? 'success' : appointment.status === 'Annulé' ? 'danger' : 'warning'}">${appointment.status}</span></p>
-                            ${appointment.notes ? `<p><strong>Notes:</strong> ${appointment.notes}</p>` : ''}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        const existing = document.getElementById('viewModal');
-        if (existing) existing.remove();
-
-        document.body.insertAdjacentHTML('beforeend', modal);
-        new bootstrap.Modal(document.getElementById('viewModal')).show();
     }
 }
 
@@ -355,22 +274,3 @@ function showAlert(message, type) {
 
 // Initialize appointments when script loads
 loadAppointments();
-
-// Global variables for pagination and search
-let currentAppointmentPage = 1;
-let currentAppointmentSearch = '';
-let currentAppointmentItemsPerPage = 10;
-
-// Handle appointment search and filter
-function handleAppointmentSearch() {
-    currentAppointmentSearch = document.getElementById('appointment-search').value;
-    currentAppointmentItemsPerPage = parseInt(document.getElementById('appointment-items-per-page').value);
-    currentAppointmentPage = 1; // Reset to first page
-    showAppointments(currentAppointmentSearch, currentAppointmentPage, currentAppointmentItemsPerPage);
-}
-
-// Change appointment page
-function changeAppointmentPage(page) {
-    currentAppointmentPage = page;
-    showAppointments(currentAppointmentSearch, currentAppointmentPage, currentAppointmentItemsPerPage);
-}
