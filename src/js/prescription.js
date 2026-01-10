@@ -38,46 +38,14 @@ function getPrescriptionCount() {
     return prescriptions.length;
 }
 
-// Show prescriptions table with search, filter and pagination
-function showPrescriptions(search = '', page = 1, itemsPerPage = 10) {
-    // Filter prescriptions based on search
-    let filteredPrescriptions = prescriptions.filter(prescription =>
-        prescription.patientName.toLowerCase().includes(search.toLowerCase()) ||
-        prescription.doctorName.toLowerCase().includes(search.toLowerCase()) ||
-        prescription.medication.toLowerCase().includes(search.toLowerCase()) ||
-        prescription.date.includes(search)
-    );
-
-    const totalItems = filteredPrescriptions.length;
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-    const startIndex = (page - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const paginatedPrescriptions = filteredPrescriptions.slice(startIndex, endIndex);
-
+// Show prescriptions table
+function showPrescriptions() {
     const content = `
-        <div class="d-flex justify-content-between mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
             <h3>Gestion des Prescriptions</h3>
             <button class="btn btn-success" onclick="showAddPrescriptionModal()">
                 <i class="bi bi-plus-circle"></i> Ajouter Prescription
             </button>
-        </div>
-
-        <!-- Search and Filter Controls -->
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <input type="text" id="prescription-search" class="form-control" placeholder="Rechercher par patient, médecin, médicament ou date..." value="${search}" onkeyup="handlePrescriptionSearch()">
-            </div>
-            <div class="col-md-3">
-                <select id="prescription-items-per-page" class="form-select" onchange="handlePrescriptionSearch()">
-                    <option value="5" ${itemsPerPage === 5 ? 'selected' : ''}>5 par page</option>
-                    <option value="10" ${itemsPerPage === 10 ? 'selected' : ''}>10 par page</option>
-                    <option value="25" ${itemsPerPage === 25 ? 'selected' : ''}>25 par page</option>
-                    <option value="50" ${itemsPerPage === 50 ? 'selected' : ''}>50 par page</option>
-                </select>
-            </div>
-            <div class="col-md-3 text-end">
-                <small class="text-muted">Total: ${totalItems} prescriptions</small>
-            </div>
         </div>
 
         <div class="table-responsive">
@@ -94,7 +62,7 @@ function showPrescriptions(search = '', page = 1, itemsPerPage = 10) {
                     </tr>
                 </thead>
                 <tbody>
-                    ${paginatedPrescriptions.map(prescription => `
+                    ${prescriptions.map(prescription => `
                         <tr>
                             <td>${prescription.id}</td>
                             <td>${prescription.patientName}</td>
@@ -103,9 +71,6 @@ function showPrescriptions(search = '', page = 1, itemsPerPage = 10) {
                             <td>${prescription.dosage}</td>
                             <td>${prescription.date}</td>
                             <td>
-                                <button class="btn btn-info btn-sm me-1" onclick="viewPrescription(${prescription.id})">
-                                    <i class="bi bi-eye"></i> Voir
-                                </button>
                                 <button class="btn btn-warning btn-sm me-1" onclick="editPrescription(${prescription.id})">
                                     <i class="bi bi-pencil"></i> Modifier
                                 </button>
@@ -118,25 +83,6 @@ function showPrescriptions(search = '', page = 1, itemsPerPage = 10) {
                 </tbody>
             </table>
         </div>
-
-        <!-- Pagination -->
-        ${totalPages > 1 ? `
-        <nav aria-label="Prescription pagination">
-            <ul class="pagination justify-content-center">
-                <li class="page-item ${page === 1 ? 'disabled' : ''}">
-                    <a class="page-link" href="#" onclick="changePrescriptionPage(${page - 1})">Précédent</a>
-                </li>
-                ${Array.from({length: totalPages}, (_, i) => i + 1).map(p => `
-                    <li class="page-item ${p === page ? 'active' : ''}">
-                        <a class="page-link" href="#" onclick="changePrescriptionPage(${p})">${p}</a>
-                    </li>
-                `).join('')}
-                <li class="page-item ${page === totalPages ? 'disabled' : ''}">
-                    <a class="page-link" href="#" onclick="changePrescriptionPage(${page + 1})">Suivant</a>
-                </li>
-            </ul>
-        </nav>
-        ` : ''}
     `;
     document.getElementById('main-content').innerHTML = content;
 }
@@ -262,7 +208,7 @@ function savePrescription() {
 
     savePrescriptions();
     bootstrap.Modal.getInstance(document.getElementById('prescriptionModal')).hide();
-    showPrescriptions(currentPrescriptionSearch, currentPrescriptionPage, currentPrescriptionItemsPerPage);
+    showPrescriptions();
     showAlert('Prescription enregistrée!', 'success');
 }
 
@@ -291,46 +237,8 @@ function deletePrescription(id) {
     if (confirm('Supprimer cette prescription ?')) {
         prescriptions = prescriptions.filter(p => p.id !== id);
         savePrescriptions();
-        showPrescriptions(currentPrescriptionSearch, currentPrescriptionPage, currentPrescriptionItemsPerPage);
+        showPrescriptions();
         showAlert('Prescription supprimée!', 'danger');
-    }
-}
-
-// View prescription
-function viewPrescription(id) {
-    const prescription = prescriptions.find(p => p.id === id);
-    if (prescription) {
-        const modal = `
-            <div class="modal fade" id="viewModal" tabindex="-1">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Détails de la Prescription</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p><strong>ID:</strong> ${prescription.id}</p>
-                            <p><strong>Patient:</strong> ${prescription.patientName}</p>
-                            <p><strong>Médecin:</strong> ${prescription.doctorName}</p>
-                            <p><strong>Médicament:</strong> ${prescription.medication}</p>
-                            <p><strong>Dosage:</strong> ${prescription.dosage}</p>
-                            <p><strong>Durée:</strong> ${prescription.duration}</p>
-                            <p><strong>Date:</strong> ${prescription.date}</p>
-                            ${prescription.notes ? `<p><strong>Notes:</strong> ${prescription.notes}</p>` : ''}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        const existing = document.getElementById('viewModal');
-        if (existing) existing.remove();
-
-        document.body.insertAdjacentHTML('beforeend', modal);
-        new bootstrap.Modal(document.getElementById('viewModal')).show();
     }
 }
 
@@ -349,22 +257,3 @@ function showAlert(message, type) {
 
 // Initialize prescriptions when script loads
 loadPrescriptions();
-
-// Global variables for pagination and search
-let currentPrescriptionPage = 1;
-let currentPrescriptionSearch = '';
-let currentPrescriptionItemsPerPage = 10;
-
-// Handle prescription search and filter
-function handlePrescriptionSearch() {
-    currentPrescriptionSearch = document.getElementById('prescription-search').value;
-    currentPrescriptionItemsPerPage = parseInt(document.getElementById('prescription-items-per-page').value);
-    currentPrescriptionPage = 1; // Reset to first page
-    showPrescriptions(currentPrescriptionSearch, currentPrescriptionPage, currentPrescriptionItemsPerPage);
-}
-
-// Change prescription page
-function changePrescriptionPage(page) {
-    currentPrescriptionPage = page;
-    showPrescriptions(currentPrescriptionSearch, currentPrescriptionPage, currentPrescriptionItemsPerPage);
-}
