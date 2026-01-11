@@ -1,4 +1,3 @@
-// Simple Hospital App - Easy to understand for EMSI students
 console.log('App starting...');
 
 // Global variables
@@ -151,4 +150,5 @@ function showAlert(message, type) {
         const alertEl = document.querySelector('.alert');
         if (alertEl) alertEl.remove();
     }, 3000);
+
 }
