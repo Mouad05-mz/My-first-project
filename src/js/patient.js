@@ -1,4 +1,4 @@
-// Simple Patient Manager - Easy to understand
+// Patient Manager
 console.log('PatientManager loading...');
 
 // Global patients array
@@ -213,4 +213,5 @@ function showAlert(message, type) {
 }
 
 // Initialize patients when script loads
+
 loadPatients();
