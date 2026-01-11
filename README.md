@@ -201,7 +201,8 @@ Cette version du système hospitalier a été simplifiée pour :
 - Marouane Younsi
 
 ## Répartition du Travail
-- Mouad Mezyan : Structure HTML, dashboard, logique principale
+- Mouad Mezyan : Structure JS, logique principale
 - Kamil Elhaiba : CSS & design
 
-- Marouane Younsi : Gestion patients / médecins
+- Marouane Younsi : Dashboard, Index, Read-me file 
+
