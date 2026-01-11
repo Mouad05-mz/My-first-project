@@ -1,4 +1,3 @@
-// Simple Appointment Manager - Easy to understand
 console.log('AppointmentManager loading...');
 
 // Global appointments array

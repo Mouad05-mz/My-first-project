@@ -1,4 +1,3 @@
-// Simple Patient Manager - Easy to understand
 console.log('PatientManager loading...');
 
 // Global patients array

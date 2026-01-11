@@ -1,4 +1,3 @@
-// Simple Prescription Manager - Easy to understand
 console.log('PrescriptionManager loading...');
 
 // Global prescriptions array

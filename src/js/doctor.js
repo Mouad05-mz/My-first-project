@@ -1,4 +1,3 @@
-// Simple Doctor Manager - Easy to understand
 console.log('DoctorManager loading...');
 
 // Global doctors array

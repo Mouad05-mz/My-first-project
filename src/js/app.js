@@ -1,4 +1,3 @@
-// Simple Hospital App - Easy to understand for EMSI students
 console.log('App starting...');
 
 // Global variables
