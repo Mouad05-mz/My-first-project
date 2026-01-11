@@ -1,4 +1,4 @@
-// Simple Doctor Manager - Easy to understand
+// Doctor Manager
 console.log('DoctorManager loading...');
 
 // Global doctors array
@@ -259,4 +259,5 @@ function showAlert(message, type) {
 }
 
 // Initialize doctors when script loads
+
 loadDoctors();
