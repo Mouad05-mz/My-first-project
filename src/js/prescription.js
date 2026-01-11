@@ -1,4 +1,4 @@
-// Simple Prescription Manager - Easy to understand
+// Prescription Manager
 console.log('PrescriptionManager loading...');
 
 // Global prescriptions array
@@ -256,4 +256,5 @@ function showAlert(message, type) {
 }
 
 // Initialize prescriptions when script loads
+
 loadPrescriptions();
