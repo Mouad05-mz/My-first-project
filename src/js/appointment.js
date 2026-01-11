@@ -1,4 +1,4 @@
-// Simple Appointment Manager - Easy to understand
+// Appointment Manager
 console.log('AppointmentManager loading...');
 
 // Global appointments array
@@ -273,4 +273,5 @@ function showAlert(message, type) {
 }
 
 // Initialize appointments when script loads
+
 loadAppointments();
